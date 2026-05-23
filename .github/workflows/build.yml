@@ -11,33 +11,14 @@ jobs:
       - uses: actions/checkout@v4
       - name: Build with Buildozer
         uses: ArtemSerebrianskii/buildozer-action@v1
+        id: buildozer
         with:
           workdir: .
-          buildozer_version: master
+          command: buildozer android debug
+          buildozer_version: stable
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: android-apk
-          path: bin/*.apk
-          if-no-files-found: error
-
-  build-ios:
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Install dependencies
-        run: |
-          python3 -m pip install --upgrade pip cython kivy-ios
-          brew install autoconf automake libtool pkg-config
-      - name: Build iOS Project
-        run: |
-          toolchain build python3 kivy
-          toolchain create "FloppyBird" .
-          # This creates the Xcode project only.
-          # Exporting a signed IPA requires Apple Developer certificates.
-      - name: Upload Xcode Project
-        uses: actions/upload-artifact@v4
-        with:
-          name: ios-xcode-project
-          path: FloppyBird-ios
+          path: ${{ steps.buildozer.outputs.filename }}
           if-no-files-found: error

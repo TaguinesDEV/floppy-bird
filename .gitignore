@@ -1,7 +1,5 @@
 .buildozer/
 bin/
 __pycache__/
-*.spec
-.github/workflows/build.yml
-# Keep build.yml versioned, but ignore local build artifacts
-! .github/workflows/build.yml
+.venv/
+*.pyc

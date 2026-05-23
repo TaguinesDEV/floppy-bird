@@ -22,17 +22,17 @@ source.include_exts = py,png,jpg,kv,atlas,wav,ogg
 #source.exclude_exts = spec
 
 # (list) List of directory to exclude (let empty to not exclude anything)
-#source.exclude_dirs = tests, bin, venv
+source.exclude_dirs = .git,.github,.venv,__pycache__,bin,.buildozer
 
 # (list) List of exclusions using pattern matching
 #source.exclude_patterns = license,images/*/*.kv
 
 # (str) Application versioning (method 1)
-version = 0.1
+# version = 0.1
 
 # (str) Application versioning (method 2)
-# version.regex = __version__ = ['"](.*)['"]
-# version.filename = %(source.dir)s/main.py
+version.regex = __version__ = ['"](.*)['"]
+version.filename = %(source.dir)s/main.py
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
@@ -49,7 +49,7 @@ orientation = portrait
 #
 
 # (bool) Indicate if the application should be fullscreen or not
-fullscreen = 0
+fullscreen = 1
 
 # (string) Presentation mode to use on android
 # android.window = picture-in-picture
@@ -61,7 +61,7 @@ fullscreen = 0
 # android.landscape = False
 
 # (list) Permissions
-android.permissions = INTERNET
+# android.permissions =
 
 # (int) Target Android API, should be as high as possible.
 android.api = 31
@@ -139,8 +139,10 @@ android.gradle_dependencies = androidx.appcompat:appcompat:1.3.1
 # Leave empty to disable it
 #p4a.url = https://github.com/kivy/python-for-android/releases/download/develop/
 
-# (str) python for android branch to use, defaults to master
-p4a.branch = develop
+# (str) python for android branch to use, defaults to the toolchain default.
+# Using the default is generally more stable than pinning this project to a
+# moving development branch.
+# p4a.branch =
 
 # (str) python for android directory (if empty, it will be automatically cloned from p4a.url)
 #p4a.dir = %(cache_dir)s/python-for-android
@@ -159,8 +161,9 @@ p4a.branch = develop
 #
 
 # (bool) should we create a certificate for codesigning?
-# Keychain certificates are safer than a self signed cert
-ios.codesign_certificate = 
+# Keychain certificates are safer than a self signed cert.
+# Leave blank in git and configure signing on the macOS builder or in Xcode.
+ios.codesign_certificate =
 
 # (int) Log level (0 = error only, 1 = info, 2 = debug (with command output))
 log_level = 2

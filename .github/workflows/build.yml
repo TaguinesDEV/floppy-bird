@@ -1,12 +1,14 @@
 name: Build Mobile Apps
-'on':
-  - push
-  - pull_request
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
 jobs:
   build-android:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Build with Buildozer
         uses: ArtemSerebrianskii/buildozer-action@v1
         with:
@@ -17,22 +19,25 @@ jobs:
         with:
           name: android-apk
           path: bin/*.apk
+          if-no-files-found: error
+
   build-ios:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Install dependencies
         run: |
-          python3 -m pip install kivy-ios
+          python3 -m pip install --upgrade pip cython kivy-ios
           brew install autoconf automake libtool pkg-config
       - name: Build iOS Project
         run: |
           toolchain build python3 kivy
           toolchain create "FloppyBird" .
-          # Note: This creates the Xcode project. 
+          # This creates the Xcode project only.
           # Exporting a signed IPA requires Apple Developer certificates.
       - name: Upload Xcode Project
         uses: actions/upload-artifact@v4
         with:
           name: ios-xcode-project
-          path: floppybird-ios
+          path: FloppyBird-ios
+          if-no-files-found: error

@@ -13,7 +13,7 @@ jobs:
           workdir: .
           buildozer_version: master
       - name: Upload APK
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: android-apk
           path: bin/*.apk
@@ -32,7 +32,7 @@ jobs:
           # Note: This creates the Xcode project. 
           # Exporting a signed IPA requires Apple Developer certificates.
       - name: Upload Xcode Project
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ios-xcode-project
           path: floppybird-ios

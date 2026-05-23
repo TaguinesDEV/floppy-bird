@@ -17,6 +17,8 @@ jobs:
             -e APP_ANDROID_ACCEPT_SDK_LICENSE=1 \
             -v "${{ github.workspace }}:/home/user/hostcwd" \
             -v "${{ github.workspace }}/.buildozer-global:/home/user/.buildozer" \
+            -w /home/user/hostcwd \
+            --user user \
             --entrypoint bash \
             ghcr.io/kivy/buildozer:latest \
             -lc "set -o pipefail && yes | buildozer android debug"

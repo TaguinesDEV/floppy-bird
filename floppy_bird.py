@@ -41,7 +41,7 @@ class Pipe(Widget):
 
             bottom_h = self.gap_y - self.gap_size / 2
             top_pipe_y = self.gap_y + self.gap_size / 2
-            top_h = (self.parent.height - top_pipe_y) if self.parent else 600
+            top_h = (self.parent.height - top_pipe_y) if self.parent else (640 - top_pipe_y)
 
             # Outer tubes
             Color(*outer_color)

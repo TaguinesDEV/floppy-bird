@@ -185,7 +185,10 @@ class GameWorld(Widget):
         def load_sound(filename):
             path = os.path.join(base_path, filename)
             sound = SoundLoader.load(path)
+            if sound is None:
+                print(f"Warning: Could not load sound file '{filename}'")
             return sound
+        
         self.sound_flap = load_sound('flap.wav')
         self.sound_score = load_sound('score.wav')
         self.sound_hit = load_sound('hit.wav')

@@ -9,16 +9,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Build with Buildozer
-        uses: ArtemSBulgakov/buildozer-action@v1
-        id: buildozer
-        with:
-          workdir: .
-          command: buildozer android debug
-          buildozer_version: stable
+      - name: Pull official Buildozer image
+        run: docker pull ghcr.io/kivy/buildozer:latest
+      - name: Build APK
+        run: |
+          docker run --rm \
+            -v "${{ github.workspace }}:/home/user/hostcwd" \
+            -v "${{ github.workspace }}/.buildozer-global:/home/user/.buildozer" \
+            ghcr.io/kivy/buildozer:latest \
+            buildozer android debug
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: android-apk
-          path: ${{ steps.buildozer.outputs.filename }}
+          path: bin/*.apk
           if-no-files-found: error

@@ -70,7 +70,8 @@ android.api = 31
 android.minapi = 21
 
 # (int) Android SDK version to use
-android.sdk = 31
+# android.sdk is deprecated in current Buildozer and ignored.
+# android.sdk = 31
 
 # (str) Android NDK version to use
 android.ndk = 25b

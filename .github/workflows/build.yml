@@ -13,15 +13,12 @@ jobs:
         run: docker pull ghcr.io/kivy/buildozer:latest
       - name: Build APK
         run: |
-          docker run --rm \
+          printf 'y\ny\ny\ny\n' | docker run --rm -i \
             -e APP_ANDROID_ACCEPT_SDK_LICENSE=1 \
             -v "${{ github.workspace }}:/home/user/hostcwd" \
             -v "${{ github.workspace }}/.buildozer-global:/home/user/.buildozer" \
-            -w /home/user/hostcwd \
-            --user user \
-            --entrypoint bash \
             ghcr.io/kivy/buildozer:latest \
-            -lc "set -o pipefail && yes | buildozer android debug"
+            android debug
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:

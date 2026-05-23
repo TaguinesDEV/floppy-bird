@@ -8,7 +8,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Build with Buildozer
-        uses: kivy/buildozer-action@v1
+        uses: ArtemSerebrianskii/buildozer-action@v1
         with:
           workdir: .
           buildozer_version: master
@@ -28,7 +28,7 @@ jobs:
       - name: Build iOS Project
         run: |
           toolchain build python3 kivy
-          toolchain create "floppybird" .
+          toolchain create "FloppyBird" .
           # Note: This creates the Xcode project. 
           # Exporting a signed IPA requires Apple Developer certificates.
       - name: Upload Xcode Project

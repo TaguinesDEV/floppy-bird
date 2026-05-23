@@ -1,12 +1,6 @@
 import os
 import math
 import random
-from kivy.config import Config
-
-# Force mobile phone aspect ratio
-Config.set('graphics', 'width', '360')
-Config.set('graphics', 'height', '640')
-Config.set('graphics', 'resizable', False)
 
 from kivy.app import App
 from kivy.uix.widget import Widget
@@ -219,7 +213,6 @@ class GameWorld(Widget):
 
         # Ensure background is drawn immediately and stays correct on resize
         self.bind(size=self._on_size, pos=self._on_size)
-        Clock.schedule_once(lambda *_: self._draw_background(), 0)
 
         # Spawn the bird object
         self.bird = Bird(pos=(100, 300))
@@ -321,17 +314,3 @@ class GameWorld(Widget):
         self.score = 0
         self.game_over = False
         self.update_score_canvas()
-
-
-class FloppyBirdApp(App):
-    def build(self):
-        game = GameWorld()
-        # Run update function 60 times a second
-        Clock.schedule_interval(game.update, 1.0 / 60.0)
-        # Spawn a new obstacle pipe every 1.8 seconds
-        Clock.schedule_interval(game.spawn_pipe, 1.8)
-        return game
-
-
-if __name__ == "__main__":
-    FloppyBirdApp().run()

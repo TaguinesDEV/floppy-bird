@@ -17,8 +17,9 @@ jobs:
             -e APP_ANDROID_ACCEPT_SDK_LICENSE=1 \
             -v "${{ github.workspace }}:/home/user/hostcwd" \
             -v "${{ github.workspace }}/.buildozer-global:/home/user/.buildozer" \
+            --entrypoint bash \
             ghcr.io/kivy/buildozer:latest \
-            android debug
+            -lc "set -o pipefail && yes | buildozer android debug"
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
